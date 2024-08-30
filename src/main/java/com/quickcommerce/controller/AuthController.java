@@ -16,8 +16,15 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @PostMapping("/signIn")
+    public ResponseEntity<String> signIn(@RequestBody User user) {
+        String token = authService.signIn(user);
+
+        return ResponseEntity.ok(token);
+    }
+
     @PostMapping("/signUp")
-    private ResponseEntity<User> signUp(@RequestBody User user) {
+    public ResponseEntity<User> signUp(@RequestBody User user) {
         User signedUser = authService.signUp(user);
 
         return new ResponseEntity<>(signedUser, HttpStatus.CREATED);

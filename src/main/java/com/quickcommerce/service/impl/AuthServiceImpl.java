@@ -3,12 +3,16 @@ package com.quickcommerce.service.impl;
 import com.quickcommerce.entity.User;
 import com.quickcommerce.repository.UserRepository;
 import com.quickcommerce.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,5 +48,15 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         return user;
+    }
+
+    @Override
+    public void signOut(HttpServletRequest request, HttpServletResponse response) {
+        // FIXME: signOut method logout user from SecurityContextHolder but doesn't invalid jwt token that shared with user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
     }
 }

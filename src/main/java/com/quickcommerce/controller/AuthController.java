@@ -2,6 +2,8 @@ package com.quickcommerce.controller;
 
 import com.quickcommerce.entity.User;
 import com.quickcommerce.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,13 @@ public class AuthController {
         String token = authService.signIn(user);
 
         return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/signOut")
+    public ResponseEntity<String> signOut(HttpServletRequest request, HttpServletResponse response) {
+        authService.signOut(request, response);
+
+        return ResponseEntity.ok("You have been logged out");
     }
 
     @PostMapping("/signUp")

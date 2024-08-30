@@ -1,10 +1,12 @@
 package com.quickcommerce.service.impl;
 
+import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.entity.User;
 import com.quickcommerce.repository.UserRepository;
 import com.quickcommerce.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,10 +28,14 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
     @Override
-    public String signIn(User user) {
+    public String signIn(UserDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         Authentication authenticated = authenticationManager.authenticate(authToken);
 
@@ -43,11 +49,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public User signUp(User user) {
+    public UserDto signUp(UserDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
-        return user;
+        UserDto savedUser = modelMapper.map(user, UserDto.class);
+
+        return savedUser;
     }
 
     @Override

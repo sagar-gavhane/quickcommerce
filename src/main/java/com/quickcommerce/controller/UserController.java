@@ -1,6 +1,6 @@
 package com.quickcommerce.controller;
 
-import com.quickcommerce.entity.User;
+import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<User> getUser(Principal principal) {
-        User user = userService.getSignedInUser(principal.getName());
+    public ResponseEntity<UserDto> getUser(Principal principal) {
+        UserDto user = userService.getSignedInUser(principal.getName());
 
         return ResponseEntity.ok(user);
     }

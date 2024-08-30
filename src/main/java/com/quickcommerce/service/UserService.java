@@ -1,9 +1,9 @@
 package com.quickcommerce.service;
 
-import com.quickcommerce.entity.User;
+import com.quickcommerce.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    public User getSignedInUser(String email);
+    public UserDto getSignedInUser(String email);
 }

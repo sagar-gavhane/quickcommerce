@@ -1,6 +1,6 @@
 package com.quickcommerce.controller;
 
-import com.quickcommerce.entity.User;
+import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,8 +19,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@RequestBody User user) {
-        String token = authService.signIn(user);
+    public ResponseEntity<String> signIn(@RequestBody UserDto userDto) {
+        String token = authService.signIn(userDto);
 
         return ResponseEntity.ok(token);
     }
@@ -33,8 +33,8 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<User> signUp(@RequestBody User user) {
-        User signedUser = authService.signUp(user);
+    public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) {
+        UserDto signedUser = authService.signUp(userDto);
 
         return new ResponseEntity<>(signedUser, HttpStatus.CREATED);
     }

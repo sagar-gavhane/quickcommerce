@@ -4,6 +4,7 @@ import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@RequestBody UserDto userDto) {
+    public ResponseEntity<String> signIn(@Valid @RequestBody UserDto userDto) {
         String token = authService.signIn(userDto);
 
         return ResponseEntity.ok(token);
@@ -33,7 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> signUp(@Valid @RequestBody UserDto userDto) {
         UserDto signedUser = authService.signUp(userDto);
 
         return new ResponseEntity<>(signedUser, HttpStatus.CREATED);

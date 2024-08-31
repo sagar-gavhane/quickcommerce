@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,4 +23,13 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(unique = true, nullable = false, length = 10)
+    private String mobile;
+
+    private boolean isEmailVerified = false;
+    private boolean isMobileVerified = false;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
 }

@@ -24,4 +24,12 @@ public class UserServiceImpl implements UserService {
 
         return userDto;
     }
+
+    @Override
+    public UserDto getUserById(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Not able to fetch user with id " + userId));
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+
+        return userDto;
+    }
 }

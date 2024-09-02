@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    public UserDto getSignedInUser(String email);
+    UserDto getSignedInUser(String email);
 
-    public UserDto getUserById(Integer userId);
+    UserDto getUserById(Integer userId);
 }

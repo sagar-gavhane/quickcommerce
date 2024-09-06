@@ -41,12 +41,15 @@ public class Product {
     @Column(nullable = true)
     private String offer;
 
+    @Column(nullable = false, unique = true)
+    private String slug;
+
     @OneToOne
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @OneToOne

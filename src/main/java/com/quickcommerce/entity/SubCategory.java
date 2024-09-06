@@ -10,7 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,28 +17,19 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Category {
+public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
     private String name;
-
-    @Column
     private boolean isActive = true;
-
-    @Column
-    private boolean isFeatured = false;
-
-    @Column
     private String thumbnail;
 
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
-    private Product product;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<SubCategory> subCategory;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @CreatedDate
     private Instant createdAt;

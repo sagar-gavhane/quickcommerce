@@ -1,5 +1,6 @@
 package com.quickcommerce.controller;
 
+import com.quickcommerce.dto.ResponseDto;
 import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -20,23 +24,27 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<ResponseDto> signIn(@Valid @RequestBody UserDto userDto) {
         String token = authService.signIn(userDto);
-
-        return ResponseEntity.ok(token);
+        Map<String, Object> data = new HashMap<>();
+        data.put("authToken", token);
+        ResponseDto responseDto = new ResponseDto<>("User signed-in successfully.", data);
+        return ResponseEntity.ok(responseDto);
     }
 
     @PostMapping("/signOut")
-    public ResponseEntity<String> signOut(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<ResponseDto> signOut(HttpServletRequest request, HttpServletResponse response) {
         authService.signOut(request, response);
-
-        return ResponseEntity.ok("You have been logged out");
+        ResponseDto responseDto = new ResponseDto<>("User sign-out successfully.", null);
+        return ResponseEntity.ok(responseDto);
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserDto> signUp(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<ResponseDto> signUp(@Valid @RequestBody UserDto userDto) {
         UserDto signedUser = authService.signUp(userDto);
-
-        return new ResponseEntity<>(signedUser, HttpStatus.CREATED);
+        Map<String, Object> data = new HashMap<>();
+        data.put("user", signedUser);
+        ResponseDto responseDto = new ResponseDto<>("User signed-up successfully.", data);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 }

@@ -3,6 +3,7 @@ package com.quickcommerce.exception;
 import com.quickcommerce.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +29,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseDto> handleSQLException(SQLIntegrityConstraintViolationException exception) {
         ResponseDto responseDto = new ResponseDto(exception.getMessage(), null);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ResponseDto> handleBadCredentialsException(BadCredentialsException badCredentialsException) {
+        ResponseDto responseDto = new ResponseDto(badCredentialsException.getMessage(), null);
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

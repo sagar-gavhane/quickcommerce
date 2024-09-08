@@ -43,7 +43,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrfConfigurer -> csrfConfigurer.disable());
         http.cors(cors -> cors.configurationSource(request -> corsConfiguration()));
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/signIn", "/api/auth/signUp", "/category/thumbnails/**").permitAll().anyRequest().authenticated());
+        // TODO: /actuator endpoint should be only accessible to admin & service registry (no public access)
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/signIn", "/api/auth/signUp", "/actuator/**", "/category/thumbnails/**").permitAll().anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

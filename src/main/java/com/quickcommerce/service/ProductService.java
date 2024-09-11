@@ -1,15 +1,17 @@
 package com.quickcommerce.service;
 
-import com.quickcommerce.entity.Product;
+import com.quickcommerce.dto.ProductDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface ProductService {
-    Product addProduct(Product product);
+    ProductDto addProduct(ProductDto product);
 
-    List<Product> getProducts();
+    List<ProductDto> getProducts();
 
-    Product getProduct(Integer productId);
+    ProductDto getProduct(Integer productId);
+
+    String getProductSlug(String productName);
 }

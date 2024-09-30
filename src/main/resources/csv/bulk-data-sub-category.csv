@@ -1,0 +1,113 @@
+id,name,category
+1,Paan,1
+2,Paan Masala & Tobacco,1
+3,Cigarettes,1
+4,Cigar,1
+5,Lighters & Accessories,1
+6,Rolling Paper,1
+7,Smoking Cessation,1
+8,Hookah Needs,1
+9,Hookah Flavor,1
+10,Candies & Gum,1
+11,Mouth Fresheners,1
+12,Cheese,2
+13,Curd & Yogurt,2
+14,Condensed Milk,2
+15,Gourmet Cheese,2
+16,Buns & Pav,2
+17,Milk,2
+18,Paneer & Tofu,2
+19,Butter & More,2
+20,Bread,2
+21,Cream & Whitener,2
+22,Oats,2
+23,Granola,2
+24,Muesli,2
+25,Kids Cereals,2
+26,Flakes,2
+27,Curd,2
+28,Yogurt,2
+29,Eggs,2
+30,Peanut Butter,2
+31,Poha,2
+32,Chocolate Spreads,2
+33,Honey,2
+34,Breakfast & Instant Food,2
+35,Energy Bars,2
+36,Breakfast Cereal,2
+37,Noodles,2
+38,Soup,2
+39,Instant Mixes,2
+40,Pasta,2
+41,Plant Based Meat,2
+42,Vermicelli,2
+43,Ready to Eat,2
+44,Frozen Non-Veg Snacks,2
+45,Frozen Veg Snacks,2
+46,Batter,2
+47,Herbs & Seasoning,2
+48,Atta Rice & Dal,2
+49,Moong & Masoor,2
+50,Rice,2
+51,Besan Sooji & Maida,2
+52,Poha Daliya & Other Grains,2
+53,Rajma Chhole & Others,2
+54,Urad,2
+55,Pesticide-Free Pulses,2
+56,Chana,2
+57,Buns Pavs & Pizza Base,2
+58,Brown & Multigrain Breads,2
+59,Sauces & Spreads,2
+60,Cooking Sauces & Paste,2
+61,Dips & Spreads,2
+62,Jams,2
+63,Honey,2
+64,Chocolate Spreads,2
+65,Chutney & Pickle,2
+66,Asian Sauces,2
+67,Tomato & Chilli Ketchups,2
+68,Chyawanprash,2
+69,Salad Dressings,2
+70,Peanut Butter,2
+71,Munchies,2
+72,Namkeen,2
+73,Snacks,2
+74,Papad & Fryums,2
+75,Popcorn,2
+76,Nachos,2
+77,Healthy Snacks,2
+78,Chips & Crisps,2
+79,Bhujia & Mixtures,2
+80,Home & Office,2
+81,Soft Toys & Greeting Cards,2
+82,Games,2
+83,Collectible Toy,2
+84,Children's Books,2
+85,Biographies & Memoirs,2
+86,Fresh Vegetables,3
+87,Fresh Fruits,3
+88,Mangoes & Melons,3
+89,Seasonal,3
+90,Exotics,3
+91,Freshly Cut & Sprouts,3
+92,Frozen Veg,3
+93,Leafies & Herbs,3
+94,Certified Organic,3
+95,Flowers & Leaves,3
+96,Hydroponic,3
+97,Combo & Recipes,3
+98,Fresh Juice & Dips,3
+99,Beverages Gift Packs,4
+100,Soft Drinks,4
+101,Fruit Juices,4
+102,Mango Drinks,4
+103,Pure Juices,4
+104,Concentrates & Syrups,4
+105,Herbal Drinks,4
+106,Energy Drinks,4
+107,Coconut Water,4
+108,Lassi Shakes & More,4
+109,Water & Ice Cubes,4
+110,Cold Coffee & Ice Tea,4
+111,Soda & Mixers,4
+112,Imported Beverages,4

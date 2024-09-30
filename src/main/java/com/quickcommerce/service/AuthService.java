@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
-    public String signIn(UserDto userDto);
+    String signIn(UserDto userDto);
 
-    public UserDto signUp(UserDto userDto);
+    UserDto signUp(UserDto userDto);
+
+    UserDto signUpWithRole(UserDto userDto);
 
     void signOut(HttpServletRequest request, HttpServletResponse response);
 }

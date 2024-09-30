@@ -1,9 +1,6 @@
 package com.quickcommerce.dto;
 
-import com.quickcommerce.entity.Brand;
-import com.quickcommerce.entity.Image;
 import com.quickcommerce.entity.Inventory;
-import com.quickcommerce.entity.Variant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +22,9 @@ public class ProductDto {
     private String slug;
     private Inventory inventory;
     private CategoryDto category;
-    private Brand brand;
-    private List<Image> images;
-    private List<Variant> variants;
+    private BrandDto brand;
+    private List<ImageDto> images;
+    private List<VariantDto> variants;
     private Instant createdAt;
     private Instant updatedAt;
 }

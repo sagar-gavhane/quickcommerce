@@ -15,4 +15,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Intege
     @Modifying
     @Query(nativeQuery = true, value = "ALTER TABLE sub_category AUTO_INCREMENT = 1")
     void resetAutoIncrement();
+
+    List<SubCategory> findByCategoryId(Integer categoryId);
 }

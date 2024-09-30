@@ -15,7 +15,7 @@ public class CategoryDto {
     private boolean isActive = true;
     private boolean isFeatured = false;
     private String thumbnail;
-    private ProductDto product;
+    //    private List<ProductDto> product;
     private Instant createdAt;
     private Instant updatedAt;
 }

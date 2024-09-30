@@ -10,6 +10,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,8 +26,10 @@ public class Brand {
 
     private String name;
 
-    @OneToOne(mappedBy = "brand")
-    private Product product;
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> product = new ArrayList<>();
+
+    private String thumbnail;
 
     @CreatedDate
     private Instant createdAt;

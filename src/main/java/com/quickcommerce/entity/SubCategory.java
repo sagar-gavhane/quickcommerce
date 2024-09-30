@@ -27,7 +27,7 @@ public class SubCategory {
     private boolean isActive = true;
     private String thumbnail;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

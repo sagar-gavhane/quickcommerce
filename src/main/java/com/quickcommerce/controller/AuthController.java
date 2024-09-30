@@ -3,10 +3,10 @@ package com.quickcommerce.controller;
 import com.quickcommerce.dto.ResponseDto;
 import com.quickcommerce.dto.UserDto;
 import com.quickcommerce.service.AuthService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,15 +20,20 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/signIn")
-    public ResponseEntity<ResponseDto> signIn(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<ResponseDto<Map<String, String>>> signIn(@Valid @RequestBody UserDto userDto) {
         String token = authService.signIn(userDto);
-        Map<String, Object> data = new HashMap<>();
+
+        Map<String, String> data = new HashMap<>();
         data.put("authToken", token);
-        ResponseDto responseDto = new ResponseDto<>("User signed-in successfully.", data);
+
+        ResponseDto<Map<String, String>> responseDto = new ResponseDto<>("User signed-in successfully.", data);
         return ResponseEntity.ok(responseDto);
     }
 
@@ -46,5 +51,12 @@ public class AuthController {
         data.put("user", signedUser);
         ResponseDto responseDto = new ResponseDto<>("User signed-up successfully.", data);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/signUpWithRole")
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<ResponseDto> signUpWithRole(@Valid @RequestBody UserDto userDto) {
+        UserDto signUpWithRole = authService.signUpWithRole(userDto);
+        return null;
     }
 }

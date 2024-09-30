@@ -1,0 +1,20 @@
+version: '3'
+services:
+    #    quickcommerce:
+    #        image: qc-img
+    #        ports:
+    #            - 8080:8080
+    database:
+        image: mysql:8.1.0
+        ports:
+            - "3300:3306"
+        environment:
+            - MYSQL_USER=sinquyer
+            - MYSQL_PASSWORD=mN2**Qj^223#
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=quickcommerce_prod_db
+        volumes:
+            - mysql_data:/var/lib/mysql
+volumes:
+    mysql_data:
+        driver: local

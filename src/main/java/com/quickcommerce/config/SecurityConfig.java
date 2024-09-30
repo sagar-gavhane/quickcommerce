@@ -11,6 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,9 +24,17 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    private final String[] PUBLIC_PATTERNS = {
+            "/actuator/**",
+            "/category/thumbnails/**",
+            "/product/**",
+            "/api/auth/signIn",
+            "/api/auth/signUp",
+            "/api/product", // FIXME: This will make /api/product api public that I don't want to POST, PUT and DELETE method
+            "/api/product/{productId}"
+    };
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private JwtFilter jwtFilter;
 
@@ -41,10 +50,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrfConfigurer -> csrfConfigurer.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
         http.cors(cors -> cors.configurationSource(request -> corsConfiguration()));
         // TODO: /actuator endpoint should be only accessible to admin & service registry (no public access)
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/signIn", "/api/auth/signUp", "/actuator/**", "/category/thumbnails/**").permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_PATTERNS).permitAll().anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

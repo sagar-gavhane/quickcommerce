@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.quickcommerce</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>quickcommerce-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>demo</name>
+    <name>quickcommerce-api</name>
     <description>Demo project for Spring Boot</description>
     <url/>
     <licenses>

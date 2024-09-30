@@ -1,5 +1,6 @@
 package com.quickcommerce.entity;
 
+import com.quickcommerce.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,9 @@ public class User {
 
     private boolean isEmailVerified = false;
     private boolean isMobileVerified = false;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.CUSTOMER;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;

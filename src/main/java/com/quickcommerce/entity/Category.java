@@ -35,10 +35,10 @@ public class Category {
     @Column
     private String thumbnail;
 
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
-    private Product product;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> product;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SubCategory> subCategory;
 
     @CreatedDate

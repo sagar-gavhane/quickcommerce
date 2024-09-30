@@ -6,8 +6,10 @@ import com.quickcommerce.repository.UserRepository;
 import com.quickcommerce.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,8 +36,10 @@ public class AuthServiceImpl implements AuthService {
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
     @Override
+    @Transactional
     public String signIn(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
+
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         Authentication authenticated = authenticationManager.authenticate(authToken);
 
@@ -43,20 +47,30 @@ public class AuthServiceImpl implements AuthService {
             throw new BadCredentialsException("Email or password doesn't match.");
         }
 
-        String token = jwtService.generateToken(user.getEmail());
-
-        return token;
+        return jwtService.generateToken(user.getEmail());
     }
 
     @Override
+    @Transactional
     public UserDto signUp(UserDto userDto) {
-        User user = modelMapper.map(userDto, User.class);
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
+        try {
+            Long exists = userRepository.findByEmailOrMobile(userDto.getEmail(), userDto.getMobile());
 
-        UserDto savedUser = modelMapper.map(user, UserDto.class);
+            if (exists == 0) {
+                throw new DataIntegrityViolationException("Email or mobile number already exists.");
+            }
 
-        return savedUser;
+            // TODO: not safe to accept role in request body
+            // TODO: only admin can be able to add all other role except CUSTOMER
+
+            User user = modelMapper.map(userDto, User.class);
+            user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+            userRepository.save(user);
+
+            return modelMapper.map(user, UserDto.class);
+        } catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityViolationException("Email or mobile number already exists.");
+        }
     }
 
     @Override
@@ -67,5 +81,12 @@ public class AuthServiceImpl implements AuthService {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
+    }
+
+    // create user with specific role
+    @Override
+    public UserDto signUpWithRole(UserDto userDto) {
+        System.out.println("UserDto" + userDto);
+        return null;
     }
 }

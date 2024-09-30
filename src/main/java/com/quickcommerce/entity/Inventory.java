@@ -22,8 +22,8 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(mappedBy = "inventory")
-    private Product product;
+//    @OneToOne(mappedBy = "inventory")
+//    private Product product;
 
     private Integer quantityInStock;
 

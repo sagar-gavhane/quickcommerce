@@ -1,6 +1,7 @@
 package com.quickcommerce.exception;
 
 import com.quickcommerce.dto.ResponseDto;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -50,5 +51,15 @@ public class GlobalExceptionHandler {
         });
 
         return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseBody
+    public ResponseEntity<ResponseDto<Map<String, String>>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", exception.getMessage());
+
+        return ResponseEntity.ok(new ResponseDto<>("Error", errors));
     }
 }
